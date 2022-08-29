@@ -36,13 +36,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.event.action == 'synchronize'
-        run: terraform plan -no-color -input=false
-        continue-on-error: true
-
-      - name: Terraform Plan
-        id: plan
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
