@@ -20,6 +20,10 @@ variable "myAmi" {
   default     = "ami-0aeb7c931a5a61206"
 }
 
-variable "myInstancetype" {
+variable "master_instance_type" {
   default = "m4.large"
+}
+
+variable "worker_instance_type" {
+  default = "t2.micro"
 }

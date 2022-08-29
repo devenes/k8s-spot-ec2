@@ -35,7 +35,7 @@ locals {
 resource "aws_spot_instance_request" "master" {
   ami                  = var.myAmi
   spot_price           = "0.0200"
-  instance_type        = var.myInstancetype
+  instance_type        = var.master_instance_type
   availability_zone    = var.myAZs
   wait_for_fulfillment = true
   key_name             = var.myKey
@@ -49,7 +49,7 @@ resource "aws_spot_instance_request" "master" {
 
 resource "aws_instance" "worker" {
   ami                  = var.myAmi
-  instance_type        = "t2.micro"
+  instance_type        = var.worker_instance_type
   key_name             = var.myKey
   availability_zone    = var.myAZs
   count                = 3
@@ -117,8 +117,8 @@ resource "aws_security_group" "tf-k8s-master-sec-gr" {
 
   ingress {
     from_port = 0
-    protocol  = "-1"
     to_port   = 0
+    protocol  = "-1"
     self      = true
   }
 
@@ -145,8 +145,8 @@ resource "aws_security_group" "tf-k8s-master-sec-gr" {
 
   egress {
     from_port   = 0
-    protocol    = "-1"
     to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
